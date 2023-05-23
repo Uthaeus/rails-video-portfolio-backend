@@ -1,9 +1,9 @@
 class PagesController < ApplicationController
-  respond_to :json 
+  respond_to :json
 
   def home
     @page_title = "Home"
-    render json: @page_title
+    render json: { title: @page_title}
   end
 
   def about
