@@ -5,27 +5,33 @@ class CommentsController < ApplicationController
 
   def index
     @comments = Comment.all
-    respond_with(@comments)
+    render json: @comments, include: :user
   end
 
   def show
-    respond_with(@comment)
+    render json: @comment, include: :user
   end
 
   def create
     @comment = Comment.new(comment_params)
-    @comment.save
-    respond_with(@comment)
+    
+    if @comment.save
+      render json: @comment, status: :created, location: @comment
+    else
+      render json: @comment.errors, status: 422
+    end
   end
 
   def update
-    @comment.update(comment_params)
-    respond_with(@comment)
+    if @comment.update(comment_params)
+      render json: @comment
+    else
+      render json: @comment.errors, status: 422
+    end
   end
 
   def destroy
     @comment.destroy
-    respond_with(@comment)
   end
 
   private

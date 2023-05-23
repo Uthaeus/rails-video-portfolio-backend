@@ -5,11 +5,11 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-    render json: @projects
+    render json: @projects, include: :comments
   end
 
   def show
-    render json: @project
+    render json: @project, include: :comments
   end
 
   def create
