@@ -5,27 +5,33 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-    respond_with(@projects)
+    render json: @projects
   end
 
   def show
-    respond_with(@project)
+    render json: @project
   end
 
   def create
     @project = Project.new(project_params)
-    @project.save
-    respond_with(@project)
+    
+    if @project.save
+      render json: @project, status: :created, location: @project
+    else
+      render json: @project.errors, status: :unprocessable_entity
+    end
   end
 
   def update
-    @project.update(project_params)
-    respond_with(@project)
+    if @project.update(project_params)
+      render json: @project
+    else
+      render json: @project.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @project.destroy
-    respond_with(@project)
   end
 
   private
@@ -34,6 +40,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:title, :subtitle, :body, :image, :video_url)
+      params.require(:project).permit(:title, :subtitle, :body, :image, :video_url, :user_id)
     end
 end
