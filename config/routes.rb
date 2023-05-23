@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   resources :projects
   devise_for :users, controllers: {
     sessions: 'users/sessions',
