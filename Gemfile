@@ -47,3 +47,6 @@ group :development do
 end
 
 gem 'responders', '~> 3.1'
+
+gem 'devise', '~> 4.9', '>= 4.9.2'
+gem 'devise-jwt', '~> 0.11.0'
