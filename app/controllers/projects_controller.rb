@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   
 
   def show
-    render json: @project, include: {comments: {include: :replies}}
+    render json: @project, include: {comments: {include: [:replies, :user]}}
   end
 
   def create
