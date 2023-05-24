@@ -7,4 +7,6 @@ class Project < ApplicationRecord
     mount_uploader :image, ProjectUploader
 
     enum status: { draft: 0, published: 1}
+
+    scope :published?, -> { where(status: 1) }
 end

@@ -4,7 +4,12 @@ class PagesController < ApplicationController
 
   def home
     @page_title = "Home"
-    render json: { title: @page_title}
+    # q: how to only include published projects in descending order?
+    # a: use the published? scope method from the Project model
+    # q:
+
+    @projects = Project.all.published?.order(created_at: :desc)
+    render json: { title: @page_title, projects: @projects}
   end
 
   def about
