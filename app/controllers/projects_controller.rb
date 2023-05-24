@@ -8,9 +8,10 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     render json: @projects, include: :comments
   end
+  
 
   def show
-    render json: @project, include: :comments
+    render json: @project, include: {comments: {include: :replies}}
   end
 
   def create
